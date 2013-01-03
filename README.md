@@ -8,12 +8,6 @@ It provides helpers for creating navigation elements with a flexible interface.
 
 * Rails 3
 
-Please note 
-
-* Ramenu 2.x requires Rails 3. Use Ramenu 1.x with Rails 2.
-* Ramenu doesn't work with Rails 2.1 or lower.
-
-
 ## Installation
 
 [RubyGems](http://rubygems.org) is the preferred way to install *Ramenu* and the best way if you want install a stable version.
@@ -391,3 +385,4 @@ Use your new builder by adding the builder option to the renderer.
 
 *Ramenu* is Copyright (c) 2013 La Fourmi Immo.
 This is Free Software distributed under the MIT license and include code from Simone Carletti Copyright (c) 2009-2012.
+Some ideas (I18n, Configuration) comes from [stijnster/alacarte](https://github.com/stijnster/alacarte).

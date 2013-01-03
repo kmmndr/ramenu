@@ -285,8 +285,9 @@ In your builder, you can use `flag_for(element, [:name_of_the_flag])`, without i
     # /lib/ramenu/menus/html_builder.rb
     module Ramenu
       module Menus
-        # The HtmlBuilder is an html5 breadcrumb builder.
-        # It provides a simple way to render breadcrumb navigation as html5 tags.
+        # The HtmlBuilder is an html5 menu builder.
+        # It provides a simple way to render menu navigation as html5 tags.
+        # It may be used to display breadcrumbs-like menu or site menu, it is just a question of css.
         #
         # To use this custom Builder pass the option :builder => BuilderClass to the `render_ramenu` helper method.
         #
@@ -294,7 +295,7 @@ In your builder, you can use `flag_for(element, [:name_of_the_flag])`, without i
     
           def render
             # creating nav id=breadcrumb
-            @context.content_tag(:nav, :id => 'breadcrumb') do
+            @context.content_tag(:nav, :id => @options[:id], :role => @options[:role]) do
               render_elements(@elements)
             end
           end
@@ -312,39 +313,22 @@ In your builder, you can use `flag_for(element, [:name_of_the_flag])`, without i
           end
     
           def render_element(element)
-            # preparing element
             name = compute_name(element)
             path = compute_path(element)
-            name_class = ''
-
-            left_icon_class = element.options[:left_icon_class]
-            left_icon_class = element.name if left_icon_class.nil?
             
-            case left_icon_class
-              when Symbol
-                name_class = left_icon_class.to_s
-              when String
-                name_class = left_icon_class
-            end
-            
-            span_class = "icons sprite-#{name_class}"
             content = @context.link_to(path, :title => name) do
-              @context.content_tag(:span, '', :class => span_class) + @context.content_tag(:span, "#{name}", :class => 'label')
+              @context.content_tag(:span, "#{name}", :class => 'label')
             end
-
+    
             # rendering sub-elements
             if element.childs.length > 0
               content = content + render_elements(element.childs)
             end
-
-            # adding element and it's sub-elements
-            # activ ?
+    
             class_arr = []
             class_arr << 'activ' if flag_for(element) == true
             class_arr << 'highlight' if element.childs.length > 0
-            activ_class = nil
-            activ_class = class_arr.join(" ") if class_arr.count > 0
-            @context.content_tag(:li, content, :class => activ_class)
+            @context.content_tag(:li, content, :class => class_arr.compact.join(' '))
           end
         end
       end

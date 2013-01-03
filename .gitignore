@@ -1,0 +1,12 @@
+# Bundler
+.bundle
+pkg/*
+Gemfile.lock
+
+# YARD
+.yardoc
+yardoc/
+
+# Vim
+.*.swp
+

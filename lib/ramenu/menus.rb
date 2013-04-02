@@ -67,6 +67,8 @@ module Ramenu
             @context.send(path)
           when Proc
             path.call(@context)
+          when Array
+            @context.polymorphic_path(path)
           when Hash
             @context.url_for(path)
           else

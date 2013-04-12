@@ -16,7 +16,7 @@ module Ramenu
 
     # create a new menu in a block
     def add_menu(name, path = nil, options = {}, &block)
-      options[:flag] = name if @options[:flag_for_menu] == true && name.is_a?(Symbol)
+      options[:flag_for_menu] = true if @options[:flag_for_menu] == true
       Ramenu.add_menu_to(menus, name, path, options, &block)
     end
   end

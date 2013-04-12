@@ -159,6 +159,7 @@ module Ramenu
 
       def add_menu(name, path, options = {}, &block)
         opts = options.merge({:parent => self})
+        opts.merge!(self.options.slice(:flag_for_menu))
         self.childs << Ramenu.new_ramenu_element(name, path, opts, &block)
       end
       alias :add_child :add_menu

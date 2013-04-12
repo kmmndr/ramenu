@@ -1,7 +1,8 @@
 module Ramenu
+  
   # flags
   def self.static_flags(flagset = nil)
-    flagset = DEFAULT_GROUP if flagset.nil? 
+    flagset = DEFAULT_GROUP if flagset.nil?
     @ramenu_flags ||= {}
     @ramenu_flags[flagset] ||= {}
   end
@@ -24,6 +25,8 @@ module Ramenu
 
   # create a new menu element
   def self.new_ramenu_element(name, path = nil, options = {}, &block)
+    options[:flag] = name if options[:flag_for_menu] == true && name.is_a?(Symbol)
+    
     elem = Menus::Element.new(name, path, options)
     yield elem if block_given?
     return elem
